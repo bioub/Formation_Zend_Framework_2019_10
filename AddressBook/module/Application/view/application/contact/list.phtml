@@ -1,21 +1,18 @@
 <?php /* @var $this \Zend\View\Renderer\PhpRenderer */ ?>
+<?php /* @var $contacts \Application\Entity\Contact[] */ ?>
 <?php $this->headTitle('Liste des contacts') ?>
 <?php $this->headStyle()->appendStyle('body { background: beige; }'); ?>
 <?php $this->placeholder('h2')->set('Liste des contacts') ?>
 
 <table class="table">
+    <?php foreach ($contacts as $c) : ?>
     <tr>
-        <td>Jean Dupont</td>
+        <td><?= $c->getPrenom() ?> <?= $c->getNom() ?></td>
         <td>
-            <a href="<?= $this->url('contacts/show', ['id' => 123]) ?>" class="btn btn-xs btn-primary">Afficher</a>
+            <a href="<?= $this->url('contacts/show', ['id' => $c->getId()]) ?>" class="btn btn-xs btn-primary">Afficher</a>
         </td>
     </tr>
-    <tr>
-        <td>Eric Martin</td>
-        <td>
-            <a href="<?= $this->url('contacts/show', ['id' => 456]) ?>" class="btn btn-xs btn-primary">Afficher</a>
-        </td>
-    </tr>
+    <?php endforeach; ?>
 </table>
 
 <a href="<?= $this->url('contacts/add') ?>">Ajouter un contact</a>

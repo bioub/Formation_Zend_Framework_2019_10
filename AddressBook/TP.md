@@ -27,7 +27,7 @@ commentaires en dessous, (puis plus tard un formulaire pour poster des commentai
 
 ## Entités
 
-Créer 2 entités : Post (id, title, content) et Comment (id, author, content)
+Créer 2 entités : Post (id (integer), title(string), content(text)) et Comment (id (integer), author(string), content(text))
 Un post peut contenir plusieurs commentaires, un commentaire est associé à un
 seul post
 
@@ -60,3 +60,4 @@ Afficher le formulaire sur la page show en bas des commentaires
 Modifier le code pour qu'il permette de poster des nouveaux commentaires (associés
 à l'article en cours d'affichage)
 
+ATTENTION: penser à ajouter le post dans le comment (avec setPost) avant de l'insérer

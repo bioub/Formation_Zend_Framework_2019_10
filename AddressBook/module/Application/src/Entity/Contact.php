@@ -44,7 +44,7 @@ class Contact
     protected $telephone;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Application\Entity\Societe")
+     * @ORM\ManyToOne(targetEntity="Application\Entity\Societe", inversedBy="contacts")
      */
     protected $societe;
 

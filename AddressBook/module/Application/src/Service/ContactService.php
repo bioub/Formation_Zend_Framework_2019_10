@@ -27,8 +27,16 @@ class ContactService
         return $repo->find($id);
     }
     
-    public function save(Contact $contact)
+    public function save($contact)
     {
+        if (is_array($contact)) {
+            $data = $contact;
+            $hydrator = new \Zend\Hydrator\ClassMethods();
+            $contact = new \Application\Entity\Contact();
+            
+            $hydrator->hydrate($data, $contact);
+        }
+        
         $this->em->persist($contact);
         $this->em->flush();
     }

@@ -12,3 +12,8 @@
     Adresse : <?= $this->escapeHtml($societe->getAdresse()) ?>
 </p>
 <?php endif; ?>
+
+<h3>Liste des contacts de cette société</h3>
+<?php foreach ($societe->getContacts() as $c) : ?>
+<p><?=$this->escapeHtml($c->getPrenom())?></p>
+<?php endforeach; ?>

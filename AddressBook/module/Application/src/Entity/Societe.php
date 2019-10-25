@@ -29,6 +29,21 @@ class Societe {
      */
     protected $adresse;
     
+    /**
+     *
+     * @ORM\OneToMany(targetEntity="Application\Entity\Contact", mappedBy="societe")
+     */
+    protected $contacts;
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
     public function getId() {
         return $this->id;
     }
@@ -67,5 +82,39 @@ class Societe {
 
 
 
+/**
+     * Add contact.
+     *
+     * @param \Application\Entity\Contact $contact
+     *
+     * @return Societe
+     */
+    public function addContact(\Application\Entity\Contact $contact)
+    {
+        $this->contacts[] = $contact;
 
+        return $this;
+    }
+
+    /**
+     * Remove contact.
+     *
+     * @param \Application\Entity\Contact $contact
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeContact(\Application\Entity\Contact $contact)
+    {
+        return $this->contacts->removeElement($contact);
+    }
+
+    /**
+     * Get contacts.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
 }

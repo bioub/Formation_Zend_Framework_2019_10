@@ -69,13 +69,9 @@ class ContactController extends AbstractActionController
         // $_POST['prenom']
         // $this->request->getPost('prenom')
         
-        $hydrator = new \Zend\Hydrator\ClassMethods();
-        $contact = new \Application\Entity\Contact();
-        $data = $this->request->getPost()->toArray();
-        $hydrator->hydrate($data, $contact);
-        
         if ($this->request->isPost()) {
-            $this->contactService->save($contact);
+            $data = $this->request->getPost()->toArray();
+            $this->contactService->save($data);
             $this->flashMessenger()
                     ->addSuccessMessage('Le contact a bien été créé');
             return $this->redirect()->toRoute('contacts');

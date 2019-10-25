@@ -64,10 +64,10 @@ class Societe extends \Application\Entity\Societe implements \Doctrine\ORM\Proxy
     public function __sleep()
     {
         if ($this->__isInitialized__) {
-            return ['__isInitialized__', 'id', 'nom', 'adresse'];
+            return ['__isInitialized__', 'id', 'nom', 'adresse', 'contacts'];
         }
 
-        return ['__isInitialized__', 'id', 'nom', 'adresse'];
+        return ['__isInitialized__', 'id', 'nom', 'adresse', 'contacts'];
     }
 
     /**
@@ -241,6 +241,39 @@ class Societe extends \Application\Entity\Societe implements \Doctrine\ORM\Proxy
         $this->__initializer__ && $this->__initializer__->__invoke($this, 'setAdresse', [$adresse]);
 
         return parent::setAdresse($adresse);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function addContact(\Application\Entity\Contact $contact)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'addContact', [$contact]);
+
+        return parent::addContact($contact);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function removeContact(\Application\Entity\Contact $contact)
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'removeContact', [$contact]);
+
+        return parent::removeContact($contact);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getContacts()
+    {
+
+        $this->__initializer__ && $this->__initializer__->__invoke($this, 'getContacts', []);
+
+        return parent::getContacts();
     }
 
 }

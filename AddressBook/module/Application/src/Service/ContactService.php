@@ -31,7 +31,7 @@ class ContactService
     {
         if (is_array($contact)) {
             $data = $contact;
-            $hydrator = new \Zend\Hydrator\ClassMethods();
+            $hydrator = new \DoctrineModule\Stdlib\Hydrator\DoctrineObject($this->em);
             $contact = new \Application\Entity\Contact();
             
             $hydrator->hydrate($data, $contact);
@@ -39,6 +39,10 @@ class ContactService
         
         $this->em->persist($contact);
         $this->em->flush();
+    }
+    
+    public function getForm() {
+        return new \Application\Form\ContactForm($this->em);
     }
 
 }

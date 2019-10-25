@@ -11,6 +11,7 @@ use Zend\View\Model\ViewModel;
  */
 class ContactController extends AbstractActionController
 {
+
     /** @var ContactService */
     protected $contactService;
 
@@ -21,13 +22,13 @@ class ContactController extends AbstractActionController
 
     public function listAction()
     {
-
+        // throw new Exception('Mon error');
 
 //        $liste = [
 //            (new Contact())->setId(1)->setPrenom('<script>alert("XSS")</script>')->setNom('Bohdanowicz'),
 //            (new Contact())->setId(2)->setPrenom('Toto')->setNom('Titi'),
 //        ];
-        
+
         $liste = $this->contactService->getAll();
 
         return new ViewModel([
@@ -39,11 +40,11 @@ class ContactController extends AbstractActionController
     {
 //        $params = $this->getPluginManager()->get('params');
 //        $id = $params('id');
-        
+
         $id = $this->params('id');
-        
+
         $contact = $this->contactService->getById($id);
-        
+
         if (!$contact) {
             return $this->notFoundAction();
         }
@@ -63,20 +64,25 @@ class ContactController extends AbstractActionController
         // ENCORE MIEUX
         // On pourra le déclarer Lazy, ce qui permettrait
         // de ne l'instancier que si nécessaire
-        $contactForm = new \Application\Form\ContactForm();
-        
+        $contactForm = $this->contactService->getForm();
+
         // Style Zend passer par l'objet requete
         // $_POST['prenom']
         // $this->request->getPost('prenom')
-        
+
         if ($this->request->isPost()) {
+            $contactForm->setInputFilter(new \Application\InputFilter\ContactInputFilter());
             $data = $this->request->getPost()->toArray();
-            $this->contactService->save($data);
-            $this->flashMessenger()
-                    ->addSuccessMessage('Le contact a bien été créé');
-            return $this->redirect()->toRoute('contacts');
+            $contactForm->setData($data);
+
+            if ($contactForm->isValid()) {
+                $this->contactService->save($data);
+                $this->flashMessenger()
+                        ->addSuccessMessage('Le contact a bien été créé');
+                return $this->redirect()->toRoute('contacts');
+            }
         }
-        
+
         return new ViewModel([
             'contactForm' => $contactForm,
         ]);

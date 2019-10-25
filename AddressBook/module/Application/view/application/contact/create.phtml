@@ -2,7 +2,7 @@
 
 <h2>Ajouter un contact</h2>
 
-<?= $this->form()->openTag($contactForm) ?>
+<?= $this->form()->openTag($contactForm->setAttribute('novalidate', 'novalidate')) ?>
     <div>
         <?= $this->formLabel($contactForm->get('prenom')) ?>
         <?= $this->formElement($contactForm->get('prenom')) ?>
@@ -11,5 +11,6 @@
     <?= $this->formRow($contactForm->get('nom')) ?>
     <?= $this->formRow($contactForm->get('email')) ?>
     <?= $this->formRow($contactForm->get('telephone')) ?>
+    <?= $this->formRow($contactForm->get('societe')) ?>
     <button>Ajouter</button>
 <?= $this->form()->closeTag() ?>

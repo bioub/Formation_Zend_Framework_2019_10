@@ -4,9 +4,11 @@
 <h2>Fiche société</h2>
 
 <p>
-    Nom : Apple
+    Nom : <?= $this->escapeHtml($societe->getNom()) ?>
 </p>
 
+<?php if ($societe->getAdresse()) : ?>
 <p>
-    Adresse : 1 Infinite Loop, Cupertino California
+    Adresse : <?= $this->escapeHtml($societe->getAdresse()) ?>
 </p>
+<?php endif; ?>

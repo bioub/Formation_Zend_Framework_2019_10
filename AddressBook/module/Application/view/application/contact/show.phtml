@@ -1,7 +1,17 @@
 <h2>Fiche d'un contact</h2> 
 
-<p>Prénom : Romain</p>
+<p>Prénom : <?= $this->escapeHtml($contact->getPrenom()) ?></p>
 
-<p>Nom : Bohdanowicz</p>
+<p>Nom : <?= $this->escapeHtml($contact->getNom()) ?></p>
 
-<p>Email : romain.bohdanowicz@gmail.com</p>
+<?php if ($contact->getEmail()) : ?>
+<p>Email : <?= $this->escapeHtml($contact->getEmail()) ?></p>
+<?php endif; ?>
+
+<?php if ($contact->getTelephone()) : ?>
+<p>Téléphone : <?= $this->escapeHtml($contact->getTelephone()) ?></p>
+<?php endif; ?>
+
+<?php if ($contact->getSociete()) : ?>
+<p>Société : <?= $this->escapeHtml($contact->getSociete()->getNom()) ?></p>
+<?php endif; ?>

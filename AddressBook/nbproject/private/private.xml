@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/view/application/contact/list.phtml</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/view/application/societe/list.phtml</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/config/module.config.php</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/README.md</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/src/Controller/SocieteController.php</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/view/application/societe/show.phtml</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/view/layout/layout.phtml</file>
-            <file>file:/C:/xampp/htdocs/AddressBook/module/Application/view/application/contact/show.phtml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

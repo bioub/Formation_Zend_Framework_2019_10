@@ -11,6 +11,7 @@ return [
                     'user'     => 'root',
                     'password' => '',
                     'dbname'   => 'addressbook',
+                    'charset'  => 'UTF8'
                 ],
             ],
         ],

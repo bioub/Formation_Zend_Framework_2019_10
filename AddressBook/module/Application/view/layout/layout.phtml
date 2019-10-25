@@ -47,6 +47,11 @@
             </div>
         </nav>
         <div class="container">
+            <?php foreach ($this->flashMessenger()->getSuccessMessages() as $msg) : ?>
+            <div class="alert alert-success">
+                <?=$msg?>
+            </div>
+            <?php endforeach; ?>
             <h2><?= $this->placeholder('h2') ?></h2>
             <?= $this->content ?>
             <hr>

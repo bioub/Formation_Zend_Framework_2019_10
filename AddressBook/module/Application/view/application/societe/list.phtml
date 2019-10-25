@@ -3,10 +3,11 @@
 <h2>Liste des sociétés</h2>
 
 <ul>
+    <?php foreach ($societes as $s) : ?>
     <li>
-        <a href="<?= $this->url('societes/show', ['id' => 123]) ?>">Apple</a>
+        <a href="<?= $this->url('societes/show', ['id' => $this->escapeUrl($s->getId()) ]) ?>">
+            <?= $this->escapeHtml($s->getNom()) ?>
+        </a>
     </li>
-    <li>
-        <a href="<?= $this->url('societes/show', ['id' => 456]) ?>">Google</a>
-    </li>
+    <?php endforeach; ?>
 </ul>

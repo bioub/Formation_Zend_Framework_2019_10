@@ -6,8 +6,16 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Application;
-
+use Application\Controller\ContactController;
+use Application\Controller\ContactControllerFactory;
+use Application\Controller\IndexController;
+use Application\Controller\SocieteController;
+use Application\Controller\SocieteControllerFactory;
+use Application\Service\ContactService;
+use Application\Service\ContactServiceFactory;
+use Application\Service\SocieteService;
+use Application\Service\SocieteServiceFactory;
+use Doctrine\ORM\Mapping\Driver\AnnotationDriver;
 use Zend\Router\Http\Literal;
 use Zend\Router\Http\Segment;
 use Zend\ServiceManager\Factory\InvokableFactory;
@@ -20,7 +28,7 @@ return [
                 'options' => [
                     'route' => '/',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
                         'action' => 'index',
                     ],
                 ],
@@ -30,7 +38,7 @@ return [
                 'options' => [
                     'route' => '/contacts',
                     'defaults' => [
-                        'controller' => Controller\ContactController::class,
+                        'controller' => ContactController::class,
                         'action' => 'list',
                     ],
                 ],
@@ -44,7 +52,7 @@ return [
                                 'id' => '[1-9][0-9]*',
                             ],
                             'defaults' => [
-                                'controller' => Controller\ContactController::class,
+                                'controller' => ContactController::class,
                                 'action' => 'show',
                             ],
                         ],
@@ -54,7 +62,7 @@ return [
                         'options' => [
                             'route' => '/add',
                             'defaults' => [
-                                'controller' => Controller\ContactController::class,
+                                'controller' => ContactController::class,
                                 'action' => 'create',
                             ],
                         ],
@@ -66,7 +74,7 @@ return [
                 'options' => [
                     'route' => '/societes',
                     'defaults' => [
-                        'controller' => Controller\SocieteController::class,
+                        'controller' => SocieteController::class,
                         'action' => 'list',
                     ],
                 ],
@@ -80,7 +88,7 @@ return [
                                 'id' => '[1-9][0-9]*',
                             ],
                             'defaults' => [
-                                'controller' => Controller\SocieteController::class,
+                                'controller' => SocieteController::class,
                                 'action' => 'show',
                             ],
                         ],
@@ -92,18 +100,31 @@ return [
                 'options' => [
                     'route' => '/application[/:action]',
                     'defaults' => [
-                        'controller' => Controller\IndexController::class,
+                        'controller' => IndexController::class,
                         'action' => 'index',
                     ],
                 ],
             ],
         ],
     ],
+    'service_manager' => [
+        'factories' => [
+            ContactService::class => ContactServiceFactory::class,
+            SocieteService::class => SocieteServiceFactory::class
+        ]
+    ],
     'controllers' => [
         'factories' => [
-            Controller\IndexController::class => InvokableFactory::class,
-            Controller\ContactController::class => InvokableFactory::class,
-            Controller\SocieteController::class => InvokableFactory::class,
+            IndexController::class => InvokableFactory::class,
+            ContactController::class => ContactControllerFactory::class,
+                /*
+                 * function($container) {
+                // $container = $container->getParent(); // Zend ServiceManager V2
+                $contactService = $container->get(ContactService::class);
+                return new ContactController($contactService);
+            },
+                 */
+            SocieteController::class => SocieteControllerFactory::class,
         ],
     ],
     'view_manager' => [
@@ -126,13 +147,12 @@ return [
         'driver' => [
             // defines an annotation driver with two paths, and names it `my_annotation_driver`
             'my_annotation_driver' => [
-                'class' => \Doctrine\ORM\Mapping\Driver\AnnotationDriver::class,
+                'class' => AnnotationDriver::class,
                 'cache' => 'array',
                 'paths' => [
                     __DIR__ . '/../src/Entity',
                 ],
             ],
-
             // default metadata driver, aggregates all other drivers into a single one.
             // Override `orm_default` only if you know what you're doing
             'orm_default' => [
